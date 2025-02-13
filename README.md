@@ -62,8 +62,8 @@ To run the code, you need the following Python libraries:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/saibalaji-21/HybridCipher.git
-   cd HybridCipher
+   git clone https://github.com/saibalaji-21/instask21.git
+   cd instask21
    ```
 2. Install the required libraries using pip:
    ```bash
