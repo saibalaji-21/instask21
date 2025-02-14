@@ -38,9 +38,46 @@ key = "TWOHANDS"
 print("Encrypted:", playfair_encrypt(plaintext, key))
 
 
+#CAESERCIPHER
+def caesar_cipher(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            shift_base = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - shift_base + shift) % 26 + shift_base)
+        else:
+            result += char
+    return result
+
+# Example usage
+text = "NEURALNETWORKS"
+shift = 3
+print("Encrypted:", caesar_cipher(text, shift))
 
 
 
+#HILLCIPHER
+import numpy as np
+
+def hill_cipher_encrypt(plaintext, key_matrix):
+    n = len(key_matrix)
+    plaintext = plaintext.upper().replace("", "")
+    if len(plaintext) % n != 0:
+        plaintext += "X" * (n - len(plaintext) % n)
+
+    plaintext_vector = [ord(char) - ord('A') for char in plaintext]
+    ciphertext = ""
+
+    for i in range(0, len(plaintext_vector), n):
+        block = plaintext_vector[i:i+n]
+        result = np.dot(key_matrix, block) % 26
+        ciphertext += "".join(chr(num + ord('A')) for num in result)
+
+    return ciphertext
+
+plaintext = "REUSABLEROCKETS"
+key_matrix = np.array([[6, 24, 1], [13, 16, 10], [20, 17, 15]])
+print("encrypted:", hill_cipher_encrypt(plaintext, key_matrix))
 
 
 
