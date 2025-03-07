@@ -1,0 +1,14 @@
+def caesar_cipher(plaintext, key):
+ ciphertext = ""
+ for char in plaintext:
+ if char.isalpha():
+ if char.islower():
+ ciphertext += chr((ord(char) - ord('a') + key) % 26 + ord('a'))
+ else:
+ ciphertext += chr((ord(char) - ord('A') + key) % 26 + ord('A'))
+ else:
+ ciphertext += char
+ return ciphertext
+plaintext = "Hello, World!"
+key = 3
+print("Ciphertext:", caesar_cipher(plaintext, key)
