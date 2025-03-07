@@ -1,0 +1,31 @@
+def vignere_encrypt(plaintext, key):
+    key = key.upper()
+    ciphertext = ""
+    key_index = 0
+    for char in plaintext.upper():
+        if char.isalpha():
+            shift = ord(key[key_index]) - ord('A')
+            ciphertext += chr((ord(char) - ord('A') + shift) % 26 + ord('A'))
+            key_index = (key_index + 1) % len(key)
+        else:
+            ciphertext += char
+    return ciphertext
+
+def vignere_decrypt(plaintext, key):
+    key = key.upper()
+    ciphertext = ""
+    key_index = 0
+    for char in plaintext.upper():
+        if char.isalpha():
+            shift = ord(key[key_index]) - ord('A')
+            ciphertext += chr((ord(char) - ord('A') - shift) % 26 + ord('A'))
+            key_index = (key_index + 1) % len(key)
+        else:
+            ciphertext += char
+    return ciphertext
+
+plaintext = input("ENTER THE PLAINTEXT: ")
+key = input("Enter the key: ")
+n = vignere_encrypt(plaintext, key)
+print("Encrypted:", n)
+print("Decrypted:", vignere_decrypt(n, key))
