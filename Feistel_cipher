@@ -1,0 +1,45 @@
+s = input("Enter a string : ")
+# This will convert string to ASCII then to 8-bit binary
+result = "".join(format(ord(i), '08b') for i in s)
+print("Result : ", result)
+
+l = int(len(result) / 2)
+left = result[:l]
+right = result[l:]
+
+k = input("Enter a key : ")
+key = "".join(format(ord(i), '08b') for i in k)
+
+# Perform the Feistel cipher round operations
+s = bin(int(right, 2) + int(key, 2))
+answer = bin(int(s[2:], 2) ^ int(left, 2))
+newr = answer[2:]
+newl = right
+
+# Swap left and right halves
+newr, newl = newl, newr
+
+# Second round of Feistel operation
+s = bin(int(newr, 2) + int(key, 2))
+ans = bin(int(s[2:], 2) ^ int(newl, 2))
+
+# Swap left and right halves again
+nl = newr
+nr = ans[2:]
+nl, nr = nr, nl
+
+# Concatenate the two halves to form the cipher
+cipher = nl + nr
+
+# Ensure the length of the cipher is a multiple of 8
+while len(cipher) < len(result):
+    cipher = "0" + cipher
+
+# Convert binary cipher back to string
+plainText = ""
+for i in range(0, len(cipher), 8):
+    temp = cipher[i:i+8]
+    d = int(temp, 2)
+    plainText = plainText + chr(d)
+
+print(plainText)
